@@ -1,11 +1,10 @@
 import {Component} from 'react'
 
-import logo from './logo.svg';
+import CardList from './component/card-list/card-list.component';
 import './App.css';
 
 class App extends Component {
   constructor() {
-    console.log('constructor')
     super(); 
 
     this.state = {
@@ -15,38 +14,40 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount')
     fetch('https://jsonplaceholder.typicode.com/users')
     .then((response) => response.json())
     .then((users) => this.setState(() => {
       return {monster: users}
-    },
-    () => {
-      console.log(this.state)
     }
     ))
   }
 
+  onSearchChange= (event) => {
+    const searchField = event.target.value.toLocaleLowerCase()
+    
+    
+    this.setState(() => {
+      return { searchField }
+    })
+  }
+
   render() {
-    console.log('render')
-    const filteredMonster= this.state.monster.filter((monsters)=> {
-      return monsters.name.toLocaleLowerCase().includes(this.state.searchField)
+const { monster, searchField}= this.state
+const {onSearchChange}= this 
+
+    const filteredMonster= monster.filter((monsters)=> {
+      return monsters.name.toLocaleLowerCase().includes(searchField)
     })
 
     return (
       <div className= 'App'>
-        <input className='search-box' type='search' placeholder='search monsters' onChange={(event) => {
-          const searchField = event.target.value.toLocaleLowerCase()
-          
-          
-          this.setState(() => {
-            return { searchField }
-          })
-
-
-
-        }}/>
-        {
+        <input
+        className='search-box'
+        type='search'
+        placeholder='search monsters'
+        onChange={onSearchChange}
+        />
+        {/* {
           filteredMonster.map((monster) => {
           return <div key={monster.id}>
             <h1>
@@ -55,7 +56,8 @@ class App extends Component {
           </div>
           }
          )
-        }
+        } */}
+        <CardList monster= {filteredMonster} />
     </div>
     )
   }
