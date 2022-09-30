@@ -42,6 +42,9 @@ const {onSearchChange}= this
 
     return (
       <div className= 'App'>
+        <h1 className='app-title'>
+          Monster Roledex
+        </h1>
         <SearchBox onChangeHandler= { onSearchChange } placeholder= 'search monsters' className= 'monster-search-box' />
         <CardList monster= {filteredMonster} />
     </div>
