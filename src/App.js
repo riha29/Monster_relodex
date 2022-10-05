@@ -6,17 +6,25 @@ import SearchBox from './component/search-box/search-box.component'
 import './App.css';
 
 const App = () => {
-const [searchField, setSearchField] = useState('')
+  const [searchField, setSearchField] = useState('')
+  const [monster, setMonster]= useState([])
 
+  console.log('render')
 
-  const onSearchChange = () => {
-    onSearchChange= (event) => {
+  fetch('https://jsonplaceholder.typicode.com/users')
+    .then((response) => response.json())
+    .then((users) => setMonster(users)
+    )
+
+  const onSearchChange= (event) => {
       const searchFieldString = event.target.value.toLocaleLowerCase()
       setSearchField(searchFieldString)
   }
 
+  const filteredMonster= monster.filter((monsters)=> {
+    return monsters.name.toLocaleLowerCase().includes(searchField)
+    })
 
-  }
   
   return (
     <div className= 'App'> 
@@ -24,7 +32,7 @@ const [searchField, setSearchField] = useState('')
       Monster Roledex Cards
     </h1>
     <SearchBox onChangeHandler= { onSearchChange } placeholder= 'search monsters' className= 'monster-search-box' />
-    {/* <CardList monster= {filteredMonster} /> */ }
+    <CardList monster= {filteredMonster} />
     </div>
   )
 }
@@ -39,14 +47,14 @@ const [searchField, setSearchField] = useState('')
 //     };
 //   }
 
-//   componentDidMount() {
-//     fetch('https://jsonplaceholder.typicode.com/users')
-//     .then((response) => response.json())
-//     .then((users) => this.setState(() => {
-//       return {monster: users}
-//     }
-//     ))
-//   }
+  // componentDidMount() {
+  //   fetch('https://jsonplaceholder.typicode.com/users')
+  //   .then((response) => response.json())
+  //   .then((users) => this.setState(() => {
+  //     return {monster: users}
+  //   }
+  //   ))
+  // }
 
 //   onSearchChange= (event) => {
 //     const searchField = event.target.value.toLocaleLowerCase()
