@@ -53,7 +53,7 @@ const App = () => {
       Monster Roledex
     </h1>
     <SearchBox onChangeHandler= { onSearchChange } placeholder= 'search monsters' className= 'monster-search-box' />
-    <SearchBox onChangeHandler= { onStringChange } placeholder= 'search string'/>
+    {/* <SearchBox onChangeHandler= { onStringChange } placeholder= 'search string'/> */}
     <CardList monster= {filteredMonster} />
     </div>
   )
