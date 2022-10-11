@@ -16,11 +16,11 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const newFilteredMonsters = monsters.filter((monster) => {
+    const newFilteredMonster = monsters.filter((monster) => {
       return monster.name.toLocaleLowerCase().includes(searchField);
     });
 
-    setFilterMonsters(newFilteredMonsters);
+    setFilterMonsters(newFilteredMonster);
   }, [monsters, searchField]);
 
   const onSearchChange = (event) => {
@@ -37,7 +37,7 @@ const App = () => {
         onChangeHandler={onSearchChange}
         placeholder='search monsters'
       />
-      <CardList monsters={filteredMonsters} />
+      <CardList monster={filteredMonsters} />
     </div>
   );
 };
